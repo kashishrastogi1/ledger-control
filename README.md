@@ -1,6 +1,6 @@
 # AI Finance Controller
 
-Deterministic finance reconciliation dashboard for 500 synthetic payment, order, settlement, and refund records.
+Deterministic finance reconciliation dashboard for  payment, order, settlement, and refund records.
 
 ## Getting Started
 
