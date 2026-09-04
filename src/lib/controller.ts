@@ -103,6 +103,8 @@ export function evaluate(results: Reconciliation[], hidden: HiddenCase[]) {
   return { total, classes, predictedClasses: [...new Set(predicted)].sort(), matrix, correct, accuracy: correct / total, precision, recall, f1: 2 * precision * recall / (precision + recall || 1), autoResolutionRate: results.filter((item) => item.status === "AUTO-RECONCILED").length / total, exceptionRate: results.filter((item) => item.status !== "AUTO-RECONCILED").length / total, unresolvedRate: results.filter((item) => item.status === "UNRESOLVED").length / total, humanReviewRate: results.filter((item) => item.status === "HUMAN REVIEW").length / total, processingTimeMs, throughput: total / (processingTimeMs / 1000), falsePositives, falseNegatives, misclassifications, classificationOnlyMisclassifications };
 }
 
+let runSequence = 0;
+
 export function runController(count = 500) {
-  const hidden = makeHiddenHoldout(count); const transactions = hidden.map(({ transaction }) => transaction); const results = transactions.map(reconcile); return { transactions, results, metrics: evaluate(results, hidden), runId: "RUN_20260904_001" };
+  const hidden = makeHiddenHoldout(count); const transactions = hidden.map(({ transaction }) => transaction); const results = transactions.map(reconcile); runSequence += 1; return { transactions, results, metrics: evaluate(results, hidden), runId: `RUN_20260904_${String(runSequence).padStart(3, "0")}` };
 }
